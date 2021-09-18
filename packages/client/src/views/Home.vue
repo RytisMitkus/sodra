@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <h3>Year to date</h3>
     <table>
       <tr>
         <th>Company</th>
@@ -64,8 +65,9 @@ export default {
         border-bottom: none
       th
         padding: 10px
-        text-align: left
+        text-align: center
       td
         padding: 10px
-        text-align: left
+        text-align: center
+        width: 20vw
 </style>
