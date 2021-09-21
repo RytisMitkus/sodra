@@ -7,7 +7,12 @@ const latestData = asyncHandler(async (req, res) => {
     const data = await dataService.getLatestData()
     res.json(data)
 })
+const oneCompanyData = asyncHandler(async (req, res) => {
+    const data = await dataService.getOneCompanyData(req.params.id)
+    res.json(data)
+})
 
 module.exports = {
-    latestData
+    latestData,
+    oneCompanyData
 }

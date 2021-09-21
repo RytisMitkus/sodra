@@ -1,5 +1,6 @@
 const createError = require('http-errors')
 
+
 module.exports = ({
     dataRepository,
 }) => ({
@@ -7,4 +8,8 @@ module.exports = ({
         const latestData = await dataRepository.getLatestData()
         return latestData
     },
+    async getOneCompanyData(jarCode) {
+        const companyData = await dataRepository.getOneCompanyData(jarCode)
+        return companyData
+    }
 })

@@ -8,6 +8,31 @@ async function getLatestData() {
     LEFT JOIN 2021_data d ON d.jarCode = a.jarCode and d.month = c.month GROUP BY 1, 2, 3 ORDER BY taxes DESC;`))
 }
 
-module.exports = { getLatestData }
+async function getOneCompanyData(jarCode) {
+    return (await db.query(`SELECT a.month, a.numInsured, a.avgWage, b.name, b.id
+    FROM 2018_data a
+             LEFT JOIN companies b on a.jarCode = b.jarCode
+    WHERE a.jarCode = ?
+    UNION
+    SELECT c.month, c.numInsured, c.avgWage, b.name, b.id
+    FROM 2019_data c
+             LEFT JOIN companies b on c.jarCode = b.jarCode
+    WHERE c.jarCode = ?
+    UNION
+    SELECT e.month, e.numInsured, e.avgWage, b.name, b.id
+    FROM 2020_data e
+             LEFT JOIN companies b on e.jarCode = b.jarCode
+    WHERE e.jarCode = ?
+    UNION
+    SELECT f.month, f.numInsured, f.avgWage, b.name, b.id
+    FROM 2021_data f
+             LEFT JOIN companies b on f.jarCode = b.jarCode
+    WHERE f.jarCode = ?
+    ORDER BY month DESC`, [jarCode, jarCode, jarCode, jarCode]))
+}
+
+module.exports = { getLatestData, getOneCompanyData }
 
 
+ // return (await db.query(`SELECT a.jarCode, a.name, d.numInsured, SUM(b.tax) as taxes 
+    // , jarCode))
