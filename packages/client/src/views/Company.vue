@@ -30,6 +30,7 @@ export default {
   computed: {},
   methods: {
     async fetchCompanyData() {
+      if (this.jarCode) return;
       const { data } = await axios.get(`/api/data/${this.jarCode}`);
       this.company = data;
     },
