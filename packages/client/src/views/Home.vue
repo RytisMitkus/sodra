@@ -27,7 +27,7 @@
           <router-link
             :to="{
               name: 'company',
-              params: { name: company.name, jarCode: company.jarCode },
+              params: { id: company.jarCode },
             }"
           >
             {{ company.name }}

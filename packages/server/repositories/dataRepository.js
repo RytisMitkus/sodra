@@ -30,5 +30,8 @@ async function getOneCompanyData(jarCode) {
     WHERE f.jarCode = ?
     ORDER BY month DESC`, [jarCode, jarCode, jarCode, jarCode]))
 }
+async function getCompanyName(jarCode) {
+    return (await db.query(`SELECT name FROM companies WHERE jarCode = ?`, [jarCode]))
+}
 
-module.exports = { getLatestData, getOneCompanyData }
+module.exports = { getLatestData, getOneCompanyData, getCompanyName }

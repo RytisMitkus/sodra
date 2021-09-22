@@ -11,6 +11,8 @@ module.exports = ({
     async getOneCompanyData(jarCode) {
         jarCode == undefined ? createError(400, 'jarCode is required') : null
         const companyData = await dataRepository.getOneCompanyData(jarCode)
-        return companyData
+        const companyName = await dataRepository.getCompanyName(jarCode)
+        const data = { companyData, companyName }
+        return data
     }
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="company">
-    įmonė - {{ $route.params.name }}
+    <h3>{{ companyName }}</h3>
     <table>
       <tr>
         <th>Mėnesis</th>
@@ -19,20 +19,24 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
       company: [],
+      companyName: "",
     };
   },
   name: "Company",
-  props: ["name", "jarCode"],
+  props: { id: String },
   computed: {},
   methods: {
     async fetchCompanyData() {
-      if (!this.jarCode) return;
-      const { data } = await axios.get(`/api/data/${this.jarCode}`);
-      this.company = data;
+      if (!this.id) return;
+      const { data } = await axios.get(`/api/data/${this.id}`);
+      const { companyData, companyName } = data;
+      this.companyName = companyName[0].name;
+      this.company = companyData;
     },
   },
   created() {
