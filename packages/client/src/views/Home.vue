@@ -8,19 +8,27 @@
         <th>Employees</th>
         <th>Taxes</th>
       </tr>
+
       <tr v-for="(company, index) in companies" v-bind:key="index">
-        <td>
-          {{ company.name }}
-        </td>
-        <td>
-          {{ company.jarCode }}
-        </td>
-        <td>
-          {{ company.numInsured }}
-        </td>
-        <td>
-          {{ company.taxes }}
-        </td>
+        <router-link
+          :to="{
+            name: 'company',
+            params: { name: company.name, jarCode: company.jarCode },
+          }"
+        >
+          <td>
+            {{ company.name }}
+          </td>
+          <td>
+            {{ company.jarCode }}
+          </td>
+          <td>
+            {{ company.numInsured }}
+          </td>
+          <td>
+            {{ company.taxes }}
+          </td>
+        </router-link>
       </tr>
     </table>
   </div>

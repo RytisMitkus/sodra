@@ -32,7 +32,3 @@ async function getOneCompanyData(jarCode) {
 }
 
 module.exports = { getLatestData, getOneCompanyData }
-
-
- // return (await db.query(`SELECT a.jarCode, a.name, d.numInsured, SUM(b.tax) as taxes 
-    // , jarCode))
