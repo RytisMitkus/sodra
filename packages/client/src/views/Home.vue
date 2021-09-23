@@ -24,14 +24,18 @@
           {{ company.taxes }}
         </td>
         <td>
-          <router-link
-            :to="{
-              name: 'company',
-              params: { id: company.jarCode },
-            }"
-          >
-            {{ company.name }}
-          </router-link>
+          <button>
+            <router-link
+              :to="{
+                name: 'company',
+                params: { id: company.jarCode },
+              }"
+            >
+              Daugiau info
+            </router-link>
+          </button>
+          |
+          <a :href="`${company.jobs}`" target="_blank">Karjera</a>
         </td>
       </tr>
     </table>
@@ -82,4 +86,22 @@ export default {
         padding: 10px
         text-align: center
         width: 20vw
+        &:last-child
+          width: 30vw
+  h3
+    font-size: 1.5em
+  a
+    color: #000
+  &:hover
+    color: #000
+  button
+    background-color: #fff
+    border: none
+    color: #fff
+    padding: 10px
+    border-radius: 5px
+    cursor: pointer
+    &:hover
+      background-color: #fff
+      color: #000
 </style>

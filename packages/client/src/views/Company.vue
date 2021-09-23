@@ -9,7 +9,9 @@
       </tr>
 
       <tr v-for="(month, index) in company" v-bind:key="index">
-        <td>{{ month.month }}</td>
+        <td>
+          {{ month.month }}
+        </td>
         <td>{{ month.numInsured }}</td>
         <td>{{ month.avgWage }}</td>
       </tr>
