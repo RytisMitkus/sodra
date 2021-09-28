@@ -1,19 +1,25 @@
 require('dotenv').config()
-const express = require('express');
+const express = require('express')
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const mysqlSession = require('./utils/session')
 const app = express();
 
 const dataRoutes = require('./routes/dataRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cookieParser());
 
+app.use(mysqlSession);
 
 app.get('/', (req, res) => {
-    res.json({ company: false });
-});
 
+    res.send('Hello World')
+})
 app.use('/api/data', dataRoutes)
+app.use('/api/users', userRoutes);
 
 
 app.use((err, req, res, next) => {

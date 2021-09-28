@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     async getCompanies() {
-      const companies = await axios.get("/api/data");
+      const companies = await axios.get("/api/data", { withCredentials: true });
       this.companies = companies.data;
     },
   },
