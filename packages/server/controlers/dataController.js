@@ -9,6 +9,7 @@ const latestData = asyncHandler(async (req, res) => {
 })
 const oneCompanyData = asyncHandler(async (req, res) => {
     const data = await dataService.getOneCompanyData(req.params.id)
+
     res.json(data)
 })
 

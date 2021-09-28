@@ -4,7 +4,7 @@
     <form>
       <div class="form-group">
         <label for="email">El. paštas</label>
-        <input type="email" v-model="email" placeholder="Email" />
+        <input type="" v-model="email" placeholder="Email" />
       </div>
       <div class="form-group">
         <label for="password">Slaptažodis </label>

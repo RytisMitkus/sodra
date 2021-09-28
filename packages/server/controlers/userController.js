@@ -11,18 +11,14 @@ const registerUser = asyncHandler(async (req, res) => {
     const {
         email, password,
     } = req.body
-
-
     await userService.isUserEmailAvailableForRegistration(email)
     const user = {
         email,
         password: password ? await bcrypt.hash(password, Number(process.env.SALT_ROUNDS)) : '',
         uid: uuidv4(),
     }
-
     await userService.registerUser(user)
     req.session.user = user
-
     res.json({
         auth: true
     })
@@ -33,7 +29,6 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res, next) => {
     const { email } = req.body
     const userDetails = await userService.getUserDetailsByEmail(email)
-
     if (!userDetails) {
         return next(createError(401, 'Email or password incorrect.'))
     }
@@ -46,10 +41,13 @@ const loginUser = asyncHandler(async (req, res, next) => {
     if (!passwordMatch) {
         throw createError(401, 'Email or password incorrect.')
     }
+
     const user = {
         auth: true
     }
+
     req.session.user = user
+
     res.json({
         auth: true
     })
@@ -57,8 +55,6 @@ const loginUser = asyncHandler(async (req, res, next) => {
 
 const logout = asyncHandler(async (req, res) => {
     req.session.destroy();
-
-
     res.json({
         success: true
     })

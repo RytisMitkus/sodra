@@ -7,12 +7,12 @@ const mysqlstore = new MySQLStore({}, db);
 const mysqlSession = session({
     store: mysqlstore,
     secret: process.env.SESSION_SECRET || 'secret',
-    saveUninitialized: false,
+    saveUninitialized: true,
     resave: false,
     rolling: true,
     unset: 'destroy',
     cookie: {
-        httpOnly: true,
+        httpOnly: false,
         secure: 'auto',
         maxAge: 1000 * 60 * 60 * 24 * 10,
     },

@@ -33,6 +33,7 @@ export default {
   methods: {
     async login() {
       const { data } = await axios.post("/api/users/login", {
+        withcredentials: true,
         email: this.email,
         password: this.password,
       });
