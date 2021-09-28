@@ -2,7 +2,6 @@ node_modules
 /packages/client/node_modules
 /packages/server/node_modules
 /packages/server/.env
-index.html
 packages/server/sodra.json
 packages/server/monthly2019.json
 packages/server/monthly-2018.json
