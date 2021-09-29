@@ -4,14 +4,19 @@
     <form>
       <div class="form-group">
         <label for="email">El. paštas</label>
-        <input type="" v-model="email" placeholder="Email" />
+        <input type="" v-model="email" placeholder="El. paštas" />
       </div>
       <div class="form-group">
         <label for="password">Slaptažodis </label>
-        <input type="password" v-model="password" placeholder="Password" />
+        <input type="password" v-model="password" placeholder="Slaptažodis" />
       </div>
-      <button @click.prevent="signUp">Sign Up</button>
+      <button class="btn-primary" @click.prevent="signUp">Registruotis</button>
     </form>
+    <p class="err" v-if="err">{{ err }}</p>
+    <div class="login">
+      <p>Turi paskyrą?</p>
+      <router-link to="/login">Prisijunk</router-link>
+    </div>
   </div>
 </template>
 
@@ -23,19 +28,24 @@ export default {
     return {
       email: "",
       password: "",
+      err: "",
     };
   },
   methods: {
     async signUp() {
-      const { data } = await axios.post("/api/users", {
-        withcredentials: true,
-        email: this.email,
-        password: this.password,
-      });
+      try {
+        const { data } = await axios.post("/api/users", {
+          withcredentials: true,
+          email: this.email,
+          password: this.password,
+        });
 
-      if (data.auth) {
-        this.$router.push("/dashboard");
-        localStorage.setItem("auth", true);
+        if (data.auth) {
+          this.$router.push("/dashboard");
+          localStorage.setItem("auth", true);
+        }
+      } catch (err) {
+        this.err = err.response.data.message;
       }
     },
   },
@@ -44,44 +54,57 @@ export default {
 
 <style lang="sass" scoped>
 .container
-  display: flex
-  flex-direction: column
-  align-items: center
-  justify-content: center
-  width: 100%
+  margin: 0 auto
+  max-width: 400px
+  padding: 20px
 
-  h3
-    font-size: 1.5em
-    margin-bottom: 0.5em
-  form
-    margin-bottom: 1em
-    .form-group
-      label
-        font-size: 1em
-        display: block
-        margin-bottom: 0.5em
-      input
-        display: block
-        width: 100%
-        border: 1px solid #ccc
-        border-radius: 3px
-        padding: 0.5em
-        font-size: 1em
-        &:focus
-          outline: none
-          border-color: #000
-          box-shadow: 0 0 5px #000
-  button
-    margin-top: 1em
-    display: block
+  a
+    text-decoration: none
+    &:hover
+      text-decoration: underline
+  .form-group
     width: 100%
-    border: 1px solid #ccc
+    margin-bottom: 20px
+    label
+      display: block
+      margin-bottom: 5px
+      font-weight: bold
+    input
+      width: 100%
+      border: 1px solid #ccc
+      border-radius: 3px
+      padding: 5px
+      &:focus
+        outline: none
+        border-color: #999
+  button
+    margin-top: 20px
+    width: 100%
+    border: none
     border-radius: 3px
-    padding: 0.5em
-    font-size: 1em
-    background: #ccc
+    padding: 5px
+    font-weight: bold
     &:focus
       outline: none
-      border-color: #000
-      box-shadow: 0 0 5px #000
+      border-color: #999
+
+  .btn-primary
+    background-color: #00a8ff
+    color: #fff
+    &:hover
+
+      background-color: #00a8ff
+      color: #fff
+    &:focus
+      outline: none
+      border-color: #999
+  .login
+    width: 60%
+    margin: 20px auto
+    text-align: center
+    color: gray
+    font-size: 0.8rem
+    display: flex
+    align-items: center
+    justify-content: space-around
 </style>

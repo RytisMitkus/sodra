@@ -29,7 +29,8 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res, next) => {
     const { email } = req.body
     const userDetails = await userService.getUserDetailsByEmail(email)
-    if (!userDetails) {
+
+    if (userDetails.length == 0) {
         return next(createError(401, 'Email or password incorrect.'))
     }
 
@@ -55,9 +56,11 @@ const loginUser = asyncHandler(async (req, res, next) => {
 
 const logout = asyncHandler(async (req, res) => {
     req.session.destroy();
+    res.clearCookie('connect.sid')
     res.json({
         success: true
     })
 })
+
 
 module.exports = { registerUser, loginUser, logout }

@@ -1,12 +1,25 @@
 <template>
   <div id="nav">
     <router-link to="/login" v-if="this.$route.path == '/'"
-      >Prisijungti</router-link
-    >
+      >Prisijungti
+    </router-link>
+    <button @click.prevent="logout" v-if="this.$route.path == '/dashboard'">
+      Atsijungti
+    </button>
   </div>
   <router-view />
 </template>
-<script></script>
+<script>
+import axios from "axios";
+export default {
+  methods: {
+    logout() {
+      axios.post("/api/users/logout");
+      this.$router.push("/");
+    },
+  },
+};
+</script>
 
 <style lang="sass">
 *
@@ -27,4 +40,14 @@
       color: #3498db
     &.router-link-exact-active
       color: #42b983
+  button
+    background: none
+    border: none
+    color: #42b983
+    font-size: 1.2em
+    padding: 0
+    &:hover
+      cursor: pointer
+    &:focus
+      outline: none
 </style>

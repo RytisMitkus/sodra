@@ -1,18 +1,30 @@
 <template>
   <div class="container">
+    <h3>Prisijunk</h3>
     <form>
       <div class="form-group">
-        <label for="email"> </label>El. paštas
-        <input type="email" id="email" v-model="email" />
+        <label for="email"> El. paštas</label>
+        <input
+          type="email"
+          id="email"
+          v-model="email"
+          placeholder="El. paštas"
+        />
       </div>
       <div class="form-group">
-        <label for="password"> </label>Slaptažodis
-        <input type="password" id="password" v-model="password" />
+        <label for="password">Slaptažodis </label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Slaptažodis"
+          v-model="password"
+        />
       </div>
       <button type="button" class="btn btn-primary" @click="login">
         Prisijungti
       </button>
     </form>
+    <p class="err" v-if="err">{{ err }}</p>
     <div class="register">
       <p>Neturi paskyros?</p>
       <router-link to="/register">Registruotis</router-link>
@@ -28,19 +40,24 @@ export default {
     return {
       email: "",
       password: "",
+      err: "",
     };
   },
   methods: {
     async login() {
-      const { data } = await axios.post("/api/users/login", {
-        withcredentials: true,
-        email: this.email,
-        password: this.password,
-      });
-      if (data.auth) localStorage.setItem("auth", true);
-      this.$router.push({
-        name: "Dashboard",
-      });
+      try {
+        const { data } = await axios.post("/api/users/login", {
+          withcredentials: true,
+          email: this.email,
+          password: this.password,
+        });
+        if (data && data.auth) localStorage.setItem("auth", true);
+        this.$router.push({
+          name: "Dashboard",
+        });
+      } catch (err) {
+        this.err = err.response.data.message;
+      }
     },
   },
 };
@@ -49,10 +66,11 @@ export default {
 <style lang="sass" scoped>
 // suggest styling for Login component
 .container
-
   margin: 0 auto
   max-width: 400px
   padding: 20px
+  .err
+    color: red
   .form-group
     width: 100%
     margin-bottom: 20px
