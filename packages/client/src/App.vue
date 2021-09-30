@@ -11,9 +11,12 @@
 </template>
 <script>
 import axios from "axios";
+import { mapMutations } from "vuex";
 export default {
   methods: {
+    ...mapMutations(["setIsAuthenticated"]),
     logout() {
+      this.setIsAuthenticated();
       axios.post("/api/users/logout");
       localStorage.removeItem("auth");
       this.$router.push("/");
