@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Company from "../views/Company.vue";
-// import store from "../store";
+
 const routes = [
   {
     path: "/",
@@ -40,8 +40,9 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
   if (to.name == "Dashboard" && localStorage.getItem("auth")) next();
-  else if (to.name == "Home") next();
+  else if (to.name == "Home" || to.name == "company") next();
   else if (to.name == "Login" || to.name == "SignUp") next();
   else next({ name: "Home" });
 });
+
 export default router;

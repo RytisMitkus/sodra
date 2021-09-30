@@ -1,6 +1,6 @@
 <template>
   <div class="company">
-    <h3>{{ companyName }}</h3>
+    <h3>{{ company.companyName }}</h3>
     <table>
       <tr>
         <th>Mėnesis</th>
@@ -8,7 +8,7 @@
         <th>Vidutinis atlyginimas</th>
       </tr>
 
-      <tr v-for="(month, index) in company" v-bind:key="index">
+      <tr v-for="(month, index) in company.companyData" v-bind:key="index">
         <td>
           {{ month.month }}
         </td>
@@ -20,51 +20,42 @@
 </template>
 
 <script>
-import axios from "axios";
-
+import { mapActions, mapGetters } from "vuex";
 export default {
-  data() {
-    return {
-      company: [],
-      companyName: "",
-    };
-  },
   name: "Company",
   props: { id: String },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      company: "data/getOneCompanyData",
+    }),
+  },
   methods: {
-    async fetchCompanyData() {
-      if (!this.id) return;
-      const { data } = await axios.get(`/api/data/${this.id}`);
-      const { companyData, companyName } = data;
-      this.companyName = companyName[0].name;
-      this.company = companyData;
-    },
+    ...mapActions({ getCompanyData: "data/getCompanyData" }),
   },
   created() {
-    this.fetchCompanyData();
+    this.getCompanyData(this.id);
   },
 };
 </script>
 
 <style lang="sass" scoped>
 .company
-    padding: 20px
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: center
+  padding: 20px
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
 table
-    border-collapse: collapse
-    tr
-        border-bottom: 1px solid #ccc
+  border-collapse: collapse
+  tr
+    border-bottom: 1px solid #ccc
     &:last-child
-        border-bottom: none
+      border-bottom: none
     th
-        padding: 10px
-        text-align: center
+      padding: 10px
+      text-align: center
     td
-        padding: 10px
-        text-align: center
-        width: 20vw
+      padding: 10px
+      text-align: center
+      width: 20vw
 </style>
