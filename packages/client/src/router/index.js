@@ -39,7 +39,7 @@ const router = createRouter({
   routes,
 });
 router.beforeEach((to, from, next) => {
-  if (to.name == "Dashboard" && store.getters.isAuthenticated) next();
+  if (to.name == "Dashboard" && localStorage.getItem("auth")) next();
   else if (to.name == "Home") next();
   else if (to.name == "Login" || to.name == "SignUp") next();
   else next({ name: "Home" });
