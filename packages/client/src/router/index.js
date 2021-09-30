@@ -1,17 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Company from "../views/Company.vue";
+import store from "../store";
 const routes = [
   {
     path: "/",
     name: "Home",
     component: Home,
-  },
-  {
-    path: "/about",
-    name: "About",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
     path: "/company/:id",
@@ -43,5 +38,10 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-
+router.beforeEach((to, from, next) => {
+  if (to.name == "Dashboard" && store.getters.isAuthenticated) next();
+  else if (to.name == "Home") next();
+  else if (to.name == "Login" || to.name == "SignUp") next();
+  else next({ name: "Home" });
+});
 export default router;

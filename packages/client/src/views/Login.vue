@@ -34,6 +34,8 @@
 
 <script>
 import axios from "axios";
+import { mapMutations } from "vuex";
+
 export default {
   name: "Login",
   data() {
@@ -44,6 +46,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["setIsAuthenticated"]),
     async login() {
       try {
         const { data } = await axios.post("/api/users/login", {
@@ -52,6 +55,7 @@ export default {
           password: this.password,
         });
         if (data && data.auth) localStorage.setItem("auth", true);
+        this.setIsAuthenticated();
         this.$router.push({
           name: "Dashboard",
         });

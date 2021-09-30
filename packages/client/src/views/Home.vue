@@ -10,7 +10,7 @@
         <th>Daugiau</th>
       </tr>
 
-      <tr v-for="(company, index) in companies" v-bind:key="index">
+      <tr v-for="(company, index) in data" v-bind:key="index">
         <td>
           {{ company.name }}
         </td>
@@ -43,25 +43,13 @@
 </template>
 
 <script>
-import axios from "axios";
-// @ is an alias to /src
-
+import { mapGetters } from "vuex";
 export default {
   name: "Home",
-  components: {},
-  data() {
-    return {
-      companies: [],
-    };
-  },
-  methods: {
-    async getCompanies() {
-      const companies = await axios.get("/api/data", { withCredentials: true });
-      this.companies = companies.data;
-    },
-  },
-  beforeMount() {
-    this.getCompanies();
+  computed: {
+    ...mapGetters({
+      data: "data/getLatestData",
+    }),
   },
 };
 </script>

@@ -15,8 +15,12 @@ export default {
   methods: {
     logout() {
       axios.post("/api/users/logout");
+      localStorage.removeItem("auth");
       this.$router.push("/");
     },
+  },
+  beforeMount() {
+    this.$store.dispatch("data/getLatestData");
   },
 };
 </script>
