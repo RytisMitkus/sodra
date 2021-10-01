@@ -7,15 +7,15 @@
           Įmonė
           <i
             @click.prevent="data.sort(dynamicSort(name))"
-            style="font-size: 0.8rem"
+            style="font-size: 0.6rem"
             class="fas fa-sort"
           ></i>
         </th>
         <th>
-          Darbuotojai
+          Darbuotojų
           <i
             @click.prevent="data.sort(dynamicSort(numInsured))"
-            style="font-size: 0.8rem"
+            style="font-size: 0.6rem"
             class="fas fa-sort"
           ></i>
         </th>
@@ -23,7 +23,7 @@
           Mokesčiai
           <i
             @click.prevent="data.sort(dynamicSort(taxes))"
-            style="font-size: 0.8rem"
+            style="font-size: 0.6rem"
             class="fas fa-sort"
           ></i>
         </th>
@@ -40,18 +40,15 @@
           {{ company.taxes }}
         </td>
         <td>
-          <button>
-            <router-link
-              class="table__link"
-              :to="{
-                name: 'company',
-                params: { id: company.jarCode },
-              }"
-            >
-              Daugiau info
-            </router-link>
-          </button>
-          |
+          <router-link
+            class="table__link"
+            :to="{
+              name: 'company',
+              params: { id: company.jarCode },
+            }"
+          >
+            Daugiau
+          </router-link>
           <a class="table__link" :href="`${company.jobs}`" target="_blank"
             >Karjera</a
           >
@@ -111,6 +108,7 @@ h3 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 0.8rem;
 
   .table {
     width: 100%;
@@ -119,12 +117,45 @@ h3 {
     padding: 0 1rem;
     border-collapse: collapse;
     table-layout: fixed;
+    th {
+      font-weight: 200;
+    }
+
     tr {
       border-bottom: 1px solid #ddd;
       td {
+        word-wrap: break-word;
         padding: 0.5rem;
         text-align: center;
       }
+    }
+  }
+}
+.table__link {
+  color: #000;
+  text-decoration: none;
+  background-color: white;
+  border: 1px solid #000;
+  padding: 0.3rem 0.8rem;
+  border-radius: 5px;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  &:hover {
+    color: #ffc107;
+    background-color: #000;
+  }
+}
+@media (max-width: 768px) {
+  .table {
+    th:nth-child(1) {
+      width: 100px;
+    }
+    th:nth-child(2) {
+      width: 90px;
+    }
+    th:nth-child(3) {
+      width: 75px;
     }
   }
 }
