@@ -5,7 +5,11 @@ module.exports = ({
     dataRepository,
 }) => ({
     async getLatestData() {
-        const latestData = await dataRepository.getLatestData()
+        let latestData = await dataRepository.getLatestData()
+        latestData.map(data => {
+            data.taxes = Number(data.taxes)
+            return data
+        })
         return latestData
     },
     async getOneCompanyData(jarCode) {

@@ -1,24 +1,40 @@
 <template>
   <div class="home">
-    <h3>Year to date</h3>
+    <h3>Duomenys nuo metų pradžios</h3>
     <table>
       <tr>
-        <th>Company</th>
-        <th>Code</th>
-        <th>Employees</th>
-        <th>Taxes</th>
+        <th>
+          Įmonė
+          <i
+            @click.prevent="data.sort(dynamicSort(name))"
+            style="font-size: 0.8rem"
+            class="fas fa-sort"
+          ></i>
+        </th>
+        <th>
+          Darbuotojai
+          <i
+            @click.prevent="data.sort(dynamicSort(numInsured))"
+            style="font-size: 0.8rem"
+            class="fas fa-sort"
+          ></i>
+        </th>
+        <th>
+          Mokesčiai
+          <i
+            @click.prevent="data.sort(dynamicSort(taxes))"
+            style="font-size: 0.8rem"
+            class="fas fa-sort"
+          ></i>
+        </th>
         <th>Daugiau</th>
       </tr>
-
       <tr v-for="(company, index) in data" v-bind:key="index">
         <td>
           {{ company.name }}
         </td>
         <td>
-          {{ company.jarCode }}
-        </td>
-        <td>
-          {{ company.numInsured }}
+          {{ company.numInsured + company.numInsured2 }}
         </td>
         <td>
           {{ company.taxes }}
@@ -44,10 +60,35 @@
 
 <script>
 import { mapGetters } from "vuex";
-
 export default {
   name: "Home",
-
+  data() {
+    return {
+      taxes: "taxes",
+      numInsured: "-numInsured",
+      name: "-name",
+    };
+  },
+  methods: {
+    //needs refactoring
+    dynamicSort(property) {
+      property === "taxes" ? (this.taxes = "-taxes") : (this.taxes = "taxes");
+      property === "numInsured"
+        ? (this.numInsured = "-numInsured")
+        : (this.numInsured = "numInsured");
+      property === "name" ? (this.name = "-name") : (this.name = "name");
+      let sortOrder = 1;
+      if (property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+      }
+      return (a, b) => {
+        let result =
+          a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+        return result * sortOrder;
+      };
+    },
+  },
   computed: {
     ...mapGetters({
       data: "data/getLatestData",
