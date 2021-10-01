@@ -44,8 +44,10 @@
 
 <script>
 import { mapGetters } from "vuex";
+
 export default {
   name: "Home",
+
   computed: {
     ...mapGetters({
       data: "data/getLatestData",
@@ -62,6 +64,7 @@ export default {
   align-items: center
   justify-content: center
   table
+    max-width: 600px
     border-collapse: collapse
     tr
       border-bottom: 1px solid #ccc

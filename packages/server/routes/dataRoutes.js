@@ -3,6 +3,7 @@ const { latestData, oneCompanyData } = require('../controlers/dataController')
 
 router.route('/')
     .get(latestData)
+
 router.route('/:id')
     .get(oneCompanyData)
 
