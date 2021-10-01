@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h3>Duomenys nuo metų pradžios</h3>
-    <table>
+    <table class="table">
       <tr>
         <th>
           Įmonė
@@ -42,6 +42,7 @@
         <td>
           <button>
             <router-link
+              class="table__link"
               :to="{
                 name: 'company',
                 params: { id: company.jarCode },
@@ -51,7 +52,9 @@
             </router-link>
           </button>
           |
-          <a :href="`${company.jobs}`" target="_blank">Karjera</a>
+          <a class="table__link" :href="`${company.jobs}`" target="_blank"
+            >Karjera</a
+          >
         </td>
       </tr>
     </table>
@@ -97,43 +100,32 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-.home
-  padding: 20px
-  display: flex
-  flex-direction: column
-  align-items: center
-  justify-content: center
-  table
-    max-width: 600px
-    border-collapse: collapse
-    tr
-      border-bottom: 1px solid #ccc
-      &:last-child
-        border-bottom: none
-      th
-        padding: 10px
-        text-align: center
-      td
-        padding: 10px
-        text-align: center
-        width: 20vw
-        &:last-child
-          width: 30vw
-  h3
-    font-size: 1.5em
-  a
-    color: #000
-  &:hover
-    color: #000
-  button
-    background-color: #fff
-    border: none
-    color: #fff
-    padding: 10px
-    border-radius: 5px
-    cursor: pointer
-    &:hover
-      background-color: #fff
-      color: #000
+<style lang="scss" scoped>
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.home {
+  padding-top: 7vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .table {
+    width: 100%;
+    margin: 2rem 0;
+    max-width: 1100px;
+    padding: 0 1rem;
+    border-collapse: collapse;
+    table-layout: fixed;
+    tr {
+      border-bottom: 1px solid #ddd;
+      td {
+        padding: 0.5rem;
+        text-align: center;
+      }
+    }
+  }
+}
 </style>
