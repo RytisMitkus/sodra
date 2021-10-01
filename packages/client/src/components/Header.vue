@@ -92,4 +92,9 @@ export default {
     }
   }
 }
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 0 0.5rem;
+  }
+}
 </style>
