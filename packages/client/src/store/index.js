@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import dataModule from "./modules/dataModule";
+import usersModule from "./modules/usersModule";
 
 export default createStore({
   state: { isAuthenticated: JSON.parse(localStorage.getItem("auth")) },
@@ -12,5 +13,6 @@ export default createStore({
   getters: { isAuthenticated: (state) => state.isAuthenticated || false },
   modules: {
     data: dataModule,
+    users: usersModule,
   },
 });

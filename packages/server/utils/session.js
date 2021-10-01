@@ -7,7 +7,7 @@ const mysqlstore = new MySQLStore({}, db);
 const mysqlSession = session({
     store: mysqlstore,
     secret: process.env.SESSION_SECRET || 'secret',
-    saveUninitialized: true,
+    saveUninitialized: false,
     resave: false,
     rolling: true,
     unset: 'destroy',
