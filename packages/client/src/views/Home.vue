@@ -1,6 +1,13 @@
 <template>
   <div class="home">
     <h3>Duomenys nuo metų pradžios</h3>
+    <div class="search">
+      <label>
+        Ieškoti pagal pavadinimą:
+        <input class="search__input-element" type="text" v-model="searchTerm" />
+      </label>
+      <span v-if="searchTerm != 0">Rasta: {{ data.length }}</span>
+    </div>
     <table class="table">
       <tr>
         <th>
@@ -59,7 +66,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   name: "Home",
   data() {
@@ -67,9 +74,13 @@ export default {
       taxes: "taxes",
       numInsured: "-numInsured",
       name: "-name",
+      searchTerm: "",
     };
   },
   methods: {
+    ...mapMutations({
+      filterCompanyData: "data/FILTER_COMPANY_DATA",
+    }),
     //needs refactoring
     dynamicSort(property) {
       property === "taxes" ? (this.taxes = "-taxes") : (this.taxes = "taxes");
@@ -94,10 +105,53 @@ export default {
       data: "data/getLatestData",
     }),
   },
+  watch: {
+    searchTerm(val) {
+      this.filterCompanyData(val);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.search {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  label {
+    display: flex;
+    width: 100%;
+    max-width: 275px;
+    align-items: center;
+    flex-direction: column;
+    .search__input-element {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      outline: none;
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  .search {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    label {
+      width: 100%;
+      max-width: 80%;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
 h3 {
   font-size: 1.5rem;
   font-weight: bold;

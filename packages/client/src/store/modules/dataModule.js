@@ -2,6 +2,7 @@ import axios from "axios";
 
 const state = {
   latestData: {},
+  latestDataCopy: {},
   company: { companyData: {}, companyName: "" },
 };
 const mutations = {
@@ -11,6 +12,17 @@ const mutations = {
   SET_COMPANY_DATA(state, { companyData, companyName }) {
     state.company.companyData = companyData;
     state.company.companyName = companyName;
+  },
+  // needs refactoring
+  FILTER_COMPANY_DATA(state, val) {
+    if (Object.keys(state.latestDataCopy).length === 0) {
+      state.latestDataCopy = state.latestData;
+    } else {
+      state.latestData = state.latestDataCopy;
+    }
+    state.latestData = state.latestData.filter((item) => {
+      return item.name.toLowerCase().includes(val.toLowerCase());
+    });
   },
 };
 const actions = {
