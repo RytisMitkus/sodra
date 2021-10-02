@@ -157,6 +157,10 @@ h3 {
     th:nth-child(3) {
       width: 75px;
     }
+    .table__link {
+      display: block;
+      margin: 0.5rem 0;
+    }
   }
 }
 </style>
