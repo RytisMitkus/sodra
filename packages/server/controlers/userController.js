@@ -44,7 +44,8 @@ const loginUser = asyncHandler(async (req, res, next) => {
     }
 
     const user = {
-        auth: true
+        email,
+        uid
     }
 
     req.session.user = user

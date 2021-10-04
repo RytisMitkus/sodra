@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const dataRepository = require('../repositories/dataRepository')
 const dataService = require('../services/dataService')({ dataRepository })
-const createError = require('http-errors')
+
 
 const latestData = asyncHandler(async (req, res) => {
     const data = await dataService.getLatestData()

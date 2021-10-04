@@ -7,6 +7,7 @@ const app = express();
 
 const dataRoutes = require('./routes/dataRoutes');
 const userRoutes = require('./routes/userRoutes');
+const postsRoutes = require('./routes/postsRoutes');
 
 app.use(morgan('dev'));
 app.use(express.json());
@@ -19,7 +20,8 @@ app.get('/', (req, res) => {
     res.send('Hello World')
 })
 app.use('/api/data', dataRoutes)
-app.use('/api/users', userRoutes);
+app.use('/api/users', userRoutes)
+app.use('/api/posts', postsRoutes)
 
 
 app.use((err, req, res, next) => {

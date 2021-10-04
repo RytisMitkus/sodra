@@ -45,6 +45,7 @@ export default {
 
 <style lang="scss" scoped>
 .header {
+  z-index: 9999;
   height: 7vh;
   display: flex;
   justify-content: space-between;
