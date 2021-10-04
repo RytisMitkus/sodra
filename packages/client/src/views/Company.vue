@@ -3,23 +3,31 @@
     <h3>{{ company.companyName }}</h3>
     <div class="company--view">
       <div class="comment--section">
+        <h3 class="comment--section__title">Komentarai</h3>
         <Tiptap :jarCode="this.$route.params.id" />
+        <div class="comment--section--submitted">
+          <h4>Palikti komentarai:</h4>
+          <p>Kol kas komentarų nėra</p>
+        </div>
       </div>
-      <table class="table">
-        <tr>
-          <th>Mėnesis</th>
-          <th>Darbuotojų skaičius</th>
-          <th>Vidutinis atlyginimas</th>
-        </tr>
+      <div class="table">
+        <h3>Mėnesiniai duomenys</h3>
+        <table class="table">
+          <tr>
+            <th>Mėnesis</th>
+            <th>Darbuotojų skaičius</th>
+            <th>Vidutinis atlyginimas</th>
+          </tr>
 
-        <tr v-for="(month, index) in company.companyData" v-bind:key="index">
-          <td>
-            {{ month.month }}
-          </td>
-          <td>{{ month.numInsured }}</td>
-          <td>{{ month.avgWage }}</td>
-        </tr>
-      </table>
+          <tr v-for="(month, index) in company.companyData" v-bind:key="index">
+            <td>
+              {{ month.month }}
+            </td>
+            <td>{{ month.numInsured }}</td>
+            <td>{{ month.avgWage }}</td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -64,6 +72,12 @@ export default {
     width: 100%;
     .comment--section {
       padding-top: 2rem;
+      .comment--section__title {
+        margin-bottom: 2rem;
+      }
+      .comment--section--submitted {
+        margin-top: 2rem;
+      }
     }
   }
 
