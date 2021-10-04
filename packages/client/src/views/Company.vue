@@ -9,7 +9,16 @@
         <div v-else>Prisijunkite, kad galėtumėte palikti komentarą</div>
         <div class="comment--section--submitted">
           <h4>Esami komentarai:</h4>
-          <p>Kol kas komentarų nėra</p>
+          <p v-if="!posts">Kol kas komentarų nėra</p>
+          <div v-else>
+            <div
+              v-for="post in posts"
+              class="comment--section--submitted__post"
+              :key="post.id"
+            >
+              <p v-html="post.post"></p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="table">
@@ -37,10 +46,16 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import Tiptap from "../components/Tiptap.vue";
+import axios from "axios";
 
 export default {
   components: { Tiptap },
   name: "Company",
+  data() {
+    return {
+      posts: [],
+    };
+  },
   props: { id: String },
   computed: {
     ...mapGetters({
@@ -52,9 +67,18 @@ export default {
     ...mapActions({
       getCompanyData: "data/getCompanyData",
     }),
+    async getCompanyPosts(jarCode) {
+      const { data } = await axios.get(`/api/posts/companyposts/${jarCode}`, {
+        withCredentials: true,
+      });
+      this.posts = data.posts;
+    },
   },
   created() {
     this.getCompanyData(this.id);
+  },
+  beforeMount() {
+    this.getCompanyPosts(this.id);
   },
 };
 </script>
@@ -105,6 +129,22 @@ export default {
         text-align: center;
       }
     }
+  }
+}
+.comment--section--submitted__post {
+  margin-bottom: 2rem;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: #fafafa;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  p {
+    margin: 0;
+    padding: 5px;
   }
 }
 </style>

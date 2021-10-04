@@ -8,16 +8,13 @@
       </h3>
     </div>
     <div class="header--item">
-      <router-link
-        class="router__link"
-        to="/login"
-        v-if="this.$route.path == '/'"
+      <router-link class="router__link" to="/login" v-if="!isAuthenticated"
         >Prisijungti
       </router-link>
       <button
         @click.prevent="logout"
         class="logout__button"
-        v-if="this.$route.path == '/dashboard'"
+        v-if="isAuthenticated"
       >
         Atsijungti
       </button>
@@ -27,7 +24,7 @@
 
 <script>
 import axios from "axios";
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "Header",
@@ -39,6 +36,9 @@ export default {
       localStorage.removeItem("auth");
       this.$router.push("/");
     },
+  },
+  computed: {
+    ...mapGetters(["isAuthenticated"]),
   },
 };
 </script>

@@ -19,12 +19,21 @@ const newPost = asyncHandler(async (req, res) => {
         post: content,
         jarCode
     }
-
     postsService.insertNewPost(newPost)
 
     res.json({ success: true })
 })
 
+const getCompanyPosts = asyncHandler(async (req, res) => {
+
+    const { jarCode } = req.params
+
+    const posts = await postsService.getCompanyPostsByJarCode(jarCode)
+
+    res.json({ posts })
+})
+
 module.exports = {
-    newPost
+    newPost,
+    getCompanyPosts
 }
