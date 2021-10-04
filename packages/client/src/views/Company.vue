@@ -1,12 +1,14 @@
 <template>
   <div class="company">
-    <h3>{{ company.companyName }}</h3>
+    <h1>{{ company.companyName }}</h1>
     <div class="company--view">
       <div class="comment--section">
         <h3 class="comment--section__title">Komentarai</h3>
-        <Tiptap :jarCode="this.$route.params.id" />
+
+        <Tiptap v-if="this.isAuthenticated" :jarCode="this.$route.params.id" />
+        <div v-else>Prisijunkite, kad galėtumėte palikti komentarą</div>
         <div class="comment--section--submitted">
-          <h4>Palikti komentarai:</h4>
+          <h4>Esami komentarai:</h4>
           <p>Kol kas komentarų nėra</p>
         </div>
       </div>
@@ -43,10 +45,13 @@ export default {
   computed: {
     ...mapGetters({
       company: "data/getOneCompanyData",
+      isAuthenticated: "isAuthenticated",
     }),
   },
   methods: {
-    ...mapActions({ getCompanyData: "data/getCompanyData" }),
+    ...mapActions({
+      getCompanyData: "data/getCompanyData",
+    }),
   },
   created() {
     this.getCompanyData(this.id);
