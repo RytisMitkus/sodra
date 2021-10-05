@@ -16,6 +16,7 @@
               class="comment--section--submitted__post"
               :key="post.id"
             >
+              <span>{{ post.post_date }}</span>
               <p v-html="post.post"></p>
             </div>
           </div>
@@ -71,6 +72,10 @@ export default {
       const { data } = await axios.get(`/api/posts/companyposts/${jarCode}`, {
         withCredentials: true,
       });
+      data.posts.forEach((post) => {
+        post.post = post.post.replace(/<p[^>]*><\/p>/g, "<br>");
+      });
+      console.log(data.posts);
       this.posts = data.posts;
     },
   },

@@ -1,10 +1,11 @@
 <template>
-  <div class="container">
-    <h3>Prisijunk</h3>
-    <form>
+  <div class="login">
+    <h3 class="login__greeting">Prisijungti</h3>
+    <form class="form">
       <div class="form-group">
-        <label for="email"> El. paštas</label>
+        <label for="email" class="form-group__label"> El. paštas</label>
         <input
+          class="form-group__input"
           type="email"
           id="email"
           v-model="email"
@@ -12,22 +13,25 @@
         />
       </div>
       <div class="form-group">
-        <label for="password">Slaptažodis </label>
+        <label for="password" class="form-group__label">Slaptažodis </label>
         <input
+          class="form-group__input"
           type="password"
           id="password"
           placeholder="Slaptažodis"
           v-model="password"
         />
       </div>
-      <button type="button" class="btn btn-primary" @click="login">
+      <button type="button" class="form-group__button" @click="login">
         Prisijungti
       </button>
     </form>
     <p class="err" v-if="err">{{ err }}</p>
     <div class="register">
       <p>Neturi paskyros?</p>
-      <router-link to="/register">Registruotis</router-link>
+      <router-link to="/register" class="register__link"
+        >Registruotis</router-link
+      >
     </div>
   </div>
 </template>
@@ -67,62 +71,82 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-// suggest styling for Login component
-.container
-  margin: 0 auto
-  max-width: 400px
-  padding: 20px
-  .err
-    color: red
-  .form-group
-    width: 100%
-    margin-bottom: 20px
-    label
-      display: block
-      margin-bottom: 5px
-      font-weight: bold
-    input
-      width: 100%
-      border: 1px solid #ccc
-      border-radius: 3px
-      padding: 5px
-      &:focus
-        outline: none
-        border-color: #999
-  button
-    margin-top: 20px
-    width: 100%
-    border: none
-    border-radius: 3px
-    padding: 5px
-    font-weight: bold
-    &:focus
-      outline: none
-      border-color: #999
-
-  .btn-primary
-    background-color: #00a8ff
-    color: #fff
-    &:hover
-
-      background-color: #00a8ff
-      color: #fff
-    &:focus
-      outline: none
-      border-color: #999
-
-  .register
-    width: 60%
-    margin: 20px auto
-    text-align: center
-    color: gray
-    font-size: 0.8rem
-    display: flex
-    align-items: center
-    justify-content: space-around
-  a
-    text-decoration: none
-    &:hover
-      text-decoration: underline
+<style lang="scss" scoped>
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  .login__greeting {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .form-group {
+      margin-bottom: 1rem;
+      width: 100%;
+      max-width: 220px;
+      .form-group__label {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+      }
+      .form-group__input {
+        width: 100%;
+        padding: 0.3rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        &:focus {
+          outline: none;
+          border-color: #000;
+        }
+      }
+    }
+    .form-group__button {
+      color: #000;
+      text-decoration: none;
+      background-color: white;
+      border: 1px solid #000;
+      padding: 0.3rem 0.8rem;
+      border-radius: 5px;
+      margin-right: 0.5rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      &:hover {
+        color: #ffc107;
+        background-color: #000;
+      }
+    }
+  }
+  .err {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+  .register {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+      font-size: 0.8rem;
+      margin-right: 0.5rem;
+    }
+    .register__link {
+      color: #000;
+      text-decoration: none;
+      font-size: 0.8rem;
+      &:hover {
+        color: #ffc107;
+      }
+    }
+  }
+}
 </style>
