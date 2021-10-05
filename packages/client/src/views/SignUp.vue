@@ -1,21 +1,35 @@
 <template>
-  <div class="container">
-    <h3>Registruotis</h3>
-    <form>
+  <div class="register">
+    <h3 class="login__greeting">Registruotis</h3>
+    <form class="form">
       <div class="form-group">
-        <label for="email">El. paštas</label>
-        <input type="" v-model="email" placeholder="El. paštas" />
+        <label for="email" class="form-group__label"> El. paštas</label>
+        <input
+          class="form-group__input"
+          type="email"
+          id="email"
+          v-model="email"
+          placeholder="El. paštas"
+        />
       </div>
       <div class="form-group">
-        <label for="password">Slaptažodis </label>
-        <input type="password" v-model="password" placeholder="Slaptažodis" />
+        <label for="password" class="form-group__label">Slaptažodis </label>
+        <input
+          class="form-group__input"
+          type="password"
+          id="password"
+          placeholder="Slaptažodis"
+          v-model="password"
+        />
       </div>
-      <button class="btn-primary" @click.prevent="signUp">Registruotis</button>
+      <button type="button" class="form-group__button" @click="login">
+        Prisijungti
+      </button>
     </form>
     <p class="err" v-if="err">{{ err }}</p>
     <div class="login">
       <p>Turi paskyrą?</p>
-      <router-link to="/login">Prisijunk</router-link>
+      <router-link to="/login" class="login__link">Prisijunk</router-link>
     </div>
   </div>
 </template>
@@ -52,59 +66,83 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-.container
-  margin: 0 auto
-  max-width: 400px
-  padding: 20px
+<style lang="scss" scoped>
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 93vh;
+  background-color: #f5f5f5;
+  .login__greeting {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 15vh;
+  }
+  .form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  a
-    text-decoration: none
-    &:hover
-      text-decoration: underline
-  .form-group
-    width: 100%
-    margin-bottom: 20px
-    label
-      display: block
-      margin-bottom: 5px
-      font-weight: bold
-    input
-      width: 100%
-      border: 1px solid #ccc
-      border-radius: 3px
-      padding: 5px
-      &:focus
-        outline: none
-        border-color: #999
-  button
-    margin-top: 20px
-    width: 100%
-    border: none
-    border-radius: 3px
-    padding: 5px
-    font-weight: bold
-    &:focus
-      outline: none
-      border-color: #999
-
-  .btn-primary
-    background-color: #00a8ff
-    color: #fff
-    &:hover
-
-      background-color: #00a8ff
-      color: #fff
-    &:focus
-      outline: none
-      border-color: #999
-  .login
-    width: 60%
-    margin: 20px auto
-    text-align: center
-    color: gray
-    font-size: 0.8rem
-    display: flex
-    align-items: center
-    justify-content: space-around
+    .form-group {
+      margin-bottom: 1rem;
+      width: 100%;
+      max-width: 220px;
+      .form-group__label {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+      }
+      .form-group__input {
+        width: 100%;
+        padding: 0.3rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        &:focus {
+          outline: none;
+          border-color: #000;
+        }
+      }
+    }
+    .form-group__button {
+      color: #000;
+      text-decoration: none;
+      background-color: white;
+      border: 1px solid #000;
+      padding: 0.3rem 0.8rem;
+      border-radius: 5px;
+      margin-right: 0.5rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      &:hover {
+        color: #ffc107;
+        background-color: #000;
+      }
+    }
+  }
+  .err {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+  .login {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+      font-size: 0.8rem;
+      margin-right: 0.5rem;
+    }
+    .login__link {
+      color: #000;
+      text-decoration: none;
+      font-size: 0.8rem;
+      &:hover {
+        color: #ffc107;
+      }
+    }
+  }
+}
 </style>

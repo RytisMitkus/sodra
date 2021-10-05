@@ -27,7 +27,8 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
 const loginUser = asyncHandler(async (req, res, next) => {
-    const { email } = req.body
+    const { email } = req.body.user
+
     const userDetails = await userService.getUserDetailsByEmail(email)
 
     if (userDetails.length == 0) {
@@ -37,7 +38,8 @@ const loginUser = asyncHandler(async (req, res, next) => {
     const {
         password, uid,
     } = userDetails[0]
-    const passwordMatch = await bcrypt.compare(req.body.password, password)
+
+    const passwordMatch = await bcrypt.compare(req.body.user.password, password)
 
     if (!passwordMatch) {
         throw createError(401, 'Email or password incorrect.')

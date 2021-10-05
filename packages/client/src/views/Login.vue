@@ -22,7 +22,7 @@
           v-model="password"
         />
       </div>
-      <button type="button" class="form-group__button" @click="login">
+      <button type="button" class="form-group__button" @click="loginUser">
         Prisijungti
       </button>
     </form>
@@ -37,9 +37,7 @@
 </template>
 
 <script>
-import axios from "axios";
-import { mapMutations } from "vuex";
-
+import { mapActions } from "vuex";
 export default {
   name: "Login",
   data() {
@@ -50,22 +48,13 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["setIsAuthenticated"]),
-    async login() {
-      try {
-        const { data } = await axios.post("/api/users/login", {
-          withcredentials: true,
-          email: this.email,
-          password: this.password,
-        });
-        if (data && data.auth) localStorage.setItem("auth", true);
-        this.setIsAuthenticated();
-        this.$router.push({
-          name: "Dashboard",
-        });
-      } catch (err) {
-        this.err = err.response.data.message;
-      }
+    ...mapActions({ login: "users/login" }),
+    loginUser() {
+      const user = {
+        email: this.email,
+        password: this.password,
+      };
+      this.login(user);
     },
   },
 };
@@ -76,12 +65,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+  height: 93vh;
   background-color: #f5f5f5;
   .login__greeting {
     font-size: 2rem;
     margin-bottom: 1rem;
+    margin-top: 15vh;
   }
   .form {
     width: 100%;
@@ -89,6 +78,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     .form-group {
       margin-bottom: 1rem;
       width: 100%;
