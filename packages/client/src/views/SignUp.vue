@@ -22,7 +22,7 @@
           v-model="password"
         />
       </div>
-      <button type="button" class="form-group__button" @click="login">
+      <button type="button" class="form-group__button" @click="registerUser">
         Prisijungti
       </button>
     </form>
@@ -35,7 +35,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapActions } from "vuex";
+
 export default {
   name: "SingUp",
   data() {
@@ -46,21 +47,13 @@ export default {
     };
   },
   methods: {
-    async signUp() {
-      try {
-        const { data } = await axios.post("/api/users", {
-          withcredentials: true,
-          email: this.email,
-          password: this.password,
-        });
-
-        if (data.auth) {
-          this.$router.push("/dashboard");
-          localStorage.setItem("auth", true);
-        }
-      } catch (err) {
-        this.err = err.response.data.message;
-      }
+    ...mapActions({ register: "users/signUp" }),
+    registerUser() {
+      const user = {
+        email: this.email,
+        password: this.password,
+      };
+      this.register(user);
     },
   },
 };

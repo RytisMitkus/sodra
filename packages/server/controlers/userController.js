@@ -10,7 +10,7 @@ const userService = require('../services/userService')({
 const registerUser = asyncHandler(async (req, res) => {
     const {
         email, password,
-    } = req.body
+    } = req.body.user
     await userService.isUserEmailAvailableForRegistration(email)
     const user = {
         email,
