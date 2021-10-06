@@ -5,7 +5,14 @@ async function insertNewPost(post) {
     return result
 }
 async function getPostsByJarCode(jarCode) {
-    const result = await db.query(`SELECT * FROM posts WHERE jarCode = ?`, [jarCode])
+    const result = await db.query(`select a.post,
+    a.post_id,
+    a.post_date,
+    b.email
+from posts a
+      left join users b on b.uid = a.author_id
+where jarCode = ?
+group by 1, 2,3, 4;`, [jarCode])
     return result
 }
 

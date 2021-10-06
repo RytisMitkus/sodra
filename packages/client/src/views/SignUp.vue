@@ -23,7 +23,7 @@
         />
       </div>
       <button type="button" class="form-group__button" @click="registerUser">
-        Prisijungti
+        Registruotis
       </button>
     </form>
     <p class="err" v-if="err">{{ err }}</p>

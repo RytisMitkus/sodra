@@ -16,7 +16,13 @@
               class="comment--section--submitted__post"
               :key="post.id"
             >
-              <span>{{ post.post_date }}</span>
+              <div class="comment--section__metadata">
+                <span
+                  >{{ post.post_date.split("T")[0] }} /
+                  {{ post.post_date.split("T")[1].split(".")[0] }}</span
+                >
+                <span>{{ post.email }}</span>
+              </div>
               <p v-html="post.post"></p>
             </div>
           </div>
@@ -150,6 +156,14 @@ export default {
   p {
     margin: 0;
     padding: 5px;
+  }
+  .comment--section__metadata {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
   }
 }
 </style>
