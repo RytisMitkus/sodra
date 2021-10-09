@@ -86,12 +86,11 @@ export default {
   methods: {
     async send() {
       const jarCode = this.jarCode;
-      const { data } = await axios.post("/api/posts/new", {
+      await axios.post("/api/posts/new", {
         withCredentials: true,
         jarCode,
         content: this.editor.getHTML(),
       });
-      console.log("data:", data);
     },
   },
   beforeMount() {

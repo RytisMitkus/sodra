@@ -7,7 +7,7 @@ async function insertNewPost(post) {
 async function getPostsByJarCode(jarCode) {
     const result = await db.query(`select a.post,
     a.post_id,
-    a.post_date,
+    a.created,
     b.email
 from posts a
       left join users b on b.uid = a.author_id

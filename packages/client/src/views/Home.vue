@@ -81,7 +81,6 @@ export default {
     ...mapMutations({
       filterCompanyData: "data/FILTER_COMPANY_DATA",
     }),
-    //needs refactoring
     dynamicSort(property) {
       property === "taxes" ? (this.taxes = "-taxes") : (this.taxes = "taxes");
       property === "numInsured"

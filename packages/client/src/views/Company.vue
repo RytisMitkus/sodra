@@ -2,32 +2,6 @@
   <div class="company">
     <h1>{{ company.companyName }}</h1>
     <div class="company--view">
-      <div class="comment--section">
-        <h3 class="comment--section__title">Komentarai</h3>
-
-        <Tiptap v-if="this.isAuthenticated" :jarCode="this.$route.params.id" />
-        <div v-else>Prisijunkite, kad galėtumėte palikti komentarą</div>
-        <div class="comment--section--submitted">
-          <h4>Esami komentarai:</h4>
-          <p v-if="!posts">Kol kas komentarų nėra</p>
-          <div v-else>
-            <div
-              v-for="post in posts"
-              class="comment--section--submitted__post"
-              :key="post.id"
-            >
-              <div class="comment--section__metadata">
-                <span
-                  >{{ post.post_date.split("T")[0] }} /
-                  {{ post.post_date.split("T")[1].split(".")[0] }}</span
-                >
-                <span>{{ post.email }}</span>
-              </div>
-              <p v-html="post.post"></p>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="table">
         <h3>Mėnesiniai duomenys</h3>
         <table class="table">
@@ -45,6 +19,31 @@
             <td>{{ month.avgWage }}</td>
           </tr>
         </table>
+      </div>
+      <div class="comment--section--submitted">
+        <div class="comment--section">
+          <h3 class="comment--section__title">Komentarai</h3>
+
+          <Tiptap v-if="isAuth" :jarCode="this.$route.params.id" />
+          <div v-else>Prisijunkite, kad galėtumėte palikti komentarą</div>
+        </div>
+        <h4>Esami komentarai:</h4>
+        <p v-if="!posts">Kol kas komentarų nėra</p>
+        <div v-else>
+          <div
+            v-for="post in posts"
+            class="comment--section--submitted__post"
+            :key="post.id"
+          >
+            <div class="comment--section__metadata">
+              <span
+                >{{ post.created.split("T")[0] }} /
+                {{ post.created.split("T")[1].split(".")[0] }}</span
+              >
+            </div>
+            <p v-html="post.post"></p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -67,7 +66,7 @@ export default {
   computed: {
     ...mapGetters({
       company: "data/getOneCompanyData",
-      isAuthenticated: "isAuthenticated",
+      isAuth: "users/isAuth",
     }),
   },
   methods: {
@@ -81,7 +80,6 @@ export default {
       data.posts.forEach((post) => {
         post.post = post.post.replace(/<p[^>]*><\/p>/g, "<br>");
       });
-      console.log(data.posts);
       this.posts = data.posts;
     },
   },
@@ -107,11 +105,12 @@ export default {
 
   .company--view {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-around;
     width: 100%;
     .comment--section {
-      padding-top: 2rem;
+      padding: 2rem 0;
       .comment--section__title {
         margin-bottom: 2rem;
       }
