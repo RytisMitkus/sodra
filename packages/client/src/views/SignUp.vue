@@ -87,6 +87,10 @@
       </div>
       <button @click.prevent="submitForm">Registruotis</button>
     </div>
+    <div class="login">
+      <p>Turi paskyrą?</p>
+      <router-link to="/login" class="register__link">Prisijunk</router-link>
+    </div>
   </div>
 </template>
 
@@ -256,6 +260,24 @@ export default {
       color: #fff;
       cursor: pointer;
       outline: none;
+      &:hover {
+        color: #ffc107;
+      }
+    }
+  }
+  .login {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+      font-size: 0.8rem;
+      margin-right: 0.5rem;
+    }
+    .register__link {
+      color: #000;
+      text-decoration: none;
+      font-size: 0.8rem;
       &:hover {
         color: #ffc107;
       }

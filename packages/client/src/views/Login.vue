@@ -91,7 +91,6 @@ export default {
   align-items: center;
   justify-content: center;
   height: 97vh;
-  background-color: #f5f5f5;
   h3 {
     margin-bottom: 20px;
     font-size: 2rem;
