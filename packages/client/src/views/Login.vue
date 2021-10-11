@@ -1,50 +1,74 @@
 <template>
   <div class="login">
     <h3 class="login__greeting">Prisijungti</h3>
-    <form class="form">
-      <div class="form-group">
-        <label for="email" class="form-group__label"> El. paštas</label>
-        <input
-          class="form-group__input"
-          type="email"
-          id="email"
-          v-model="email"
-          placeholder="El. paštas"
-        />
+    <div class="form">
+      <!-- email  -->
+      <div class="form--group">
+        <label> El. paštas</label>
+        <input v-model="email" class="form__control" @blur="v$.email.$touch" />
+        <div
+          class="input__errors"
+          v-for="(error, index) of v$.email.$errors"
+          :key="index"
+        >
+          <div class="error__msg">{{ error.$message }}</div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="password" class="form-group__label">Slaptažodis </label>
+      <!-- password  -->
+      <div class="form--group">
+        <label> Slaptažodis</label>
         <input
-          class="form-group__input"
-          type="password"
-          id="password"
-          placeholder="Slaptažodis"
           v-model="password"
+          class="form__control"
+          @blur="v$.password.$touch"
         />
+
+        <div
+          class="input__errors"
+          v-for="(error, index) of v$.password.$errors"
+          :key="index"
+        >
+          <div class="error__msg">{{ error.$message }}</div>
+        </div>
       </div>
       <button type="button" class="form-group__button" @click="loginUser">
         Prisijungti
       </button>
-    </form>
-    <p class="err" v-if="err">{{ err }}</p>
-    <div class="register">
-      <p>Neturi paskyros?</p>
-      <router-link to="/register" class="register__link"
-        >Registruotis</router-link
-      >
+      <div class="register">
+        <p>Neturi paskyros?</p>
+        <router-link to="/register" class="register__link"
+          >Registruotis</router-link
+        >
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+import useVuelidate from "@vuelidate/core";
+import { required, email, minLength } from "@vuelidate/validators";
 export default {
   name: "Login",
+  setup() {
+    return { v$: useVuelidate() };
+  },
   data() {
     return {
       email: "",
       password: "",
-      err: "",
+    };
+  },
+  validations() {
+    return {
+      email: {
+        required,
+        email,
+      },
+      password: {
+        required,
+        min: minLength(6),
+      },
     };
   },
   methods: {
@@ -65,12 +89,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 93vh;
-  background-color: #f5f5f5;
-  .login__greeting {
+  justify-content: center;
+  height: 97vh;
+  h3 {
+    margin-bottom: 20px;
     font-size: 2rem;
-    margin-bottom: 1rem;
-    margin-top: 15vh;
   }
   .form {
     width: 100%;
@@ -78,47 +101,53 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    .form-group {
+    justify-content: center;
+    .form--group {
       margin-bottom: 1rem;
+      max-width: 200px;
+    }
+    .form--group:last-child {
+      margin-bottom: 0;
+    }
+
+    .form__control {
       width: 100%;
-      max-width: 220px;
-      .form-group__label {
-        font-size: 0.8rem;
-        margin-bottom: 0.5rem;
-      }
-      .form-group__input {
-        width: 100%;
-        padding: 0.3rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 0.8rem;
-        &:focus {
-          outline: none;
-          border-color: #000;
-        }
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 12px;
+      outline: none;
+    }
+    .form__control:focus {
+      border: 1px solid #000;
+    }
+    .input__errors {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .error__msg {
+        color: red;
+        font-size: 12px;
+        margin-bottom: 0.2rem;
       }
     }
-    .form-group__button {
-      color: #000;
-      text-decoration: none;
-      background-color: white;
-      border: 1px solid #000;
-      padding: 0.3rem 0.8rem;
+    button {
+      width: 100%;
+      max-width: 200px;
+      padding: 10px;
+      border: none;
       border-radius: 5px;
-      margin-right: 0.5rem;
+      font-size: 16px;
+      background-color: #000;
+      color: #fff;
       cursor: pointer;
-      font-size: 0.8rem;
+      outline: none;
       &:hover {
         color: #ffc107;
-        background-color: #000;
       }
     }
-  }
-  .err {
-    color: red;
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
   }
   .register {
     margin-top: 1rem;

@@ -23,7 +23,7 @@ const actions = {
       this.err = err.response.data.message;
     }
   },
-  async signUp(context, user) {
+  async register(context, user) {
     try {
       const { data } = await axios.post("/api/users", {
         withcredentials: true,

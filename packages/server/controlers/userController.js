@@ -9,11 +9,13 @@ const userService = require('../services/userService')({
 
 const registerUser = asyncHandler(async (req, res) => {
     const {
-        email, password,
+        email, password, lastName, name,
     } = req.body.user
     await userService.isUserEmailAvailableForRegistration(email)
     const user = {
         email,
+        lastName,
+        name,
         password: password ? await bcrypt.hash(password, Number(process.env.SALT_ROUNDS)) : '',
         uid: uuidv4(),
     }
