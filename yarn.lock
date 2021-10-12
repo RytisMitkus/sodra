@@ -7441,6 +7441,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"express-validator@npm:^6.12.2":
+  version: 6.12.2
+  resolution: "express-validator@npm:6.12.2"
+  dependencies:
+    lodash: ^4.17.21
+    validator: ^13.5.2
+  checksum: 872d4aa2e1284e472740832c603a2d915969a703cff64da5f763af6e79f6d1041d7046cfc6a3afa576778d0b063922d9582f4da08cb6fa6d1f1df72fe010a274
+  languageName: node
+  linkType: hard
+
 "express@npm:^4.16.3, express@npm:^4.17.1":
   version: 4.17.1
   resolution: "express@npm:4.17.1"
@@ -14380,6 +14390,7 @@ fsevents@~2.3.2:
     express-async-handler: ^1.1.4
     express-mysql-session: ^2.1.7
     express-session: ^1.17.2
+    express-validator: ^6.12.2
     http-errors: ^1.8.0
     morgan: ^1.10.0
     mysql2: ^2.3.0
@@ -16207,6 +16218,13 @@ fsevents@~2.3.2:
   dependencies:
     builtins: ^1.0.3
   checksum: ce4c68207abfb22c05eedb09ff97adbcedc80304a235a0844f5344f1fd5086aa80e4dbec5684d6094e26e35065277b765c1caef68bcea66b9056761eddb22967
+  languageName: node
+  linkType: hard
+
+"validator@npm:^13.5.2":
+  version: 13.6.0
+  resolution: "validator@npm:13.6.0"
+  checksum: 1f9f813228a709d993b965813ad9d8ce009717bec64f57a0ac40d5f50ef781ee47260f85741e125775823fb31aa3beb7f974e0f5fb1afe9bc4615b7fadd7f8bb
   languageName: node
   linkType: hard
 

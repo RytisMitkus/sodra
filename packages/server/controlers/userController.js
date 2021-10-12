@@ -7,7 +7,11 @@ const userService = require('../services/userService')({
     userRepository,
 })
 
+
+
 const registerUser = asyncHandler(async (req, res) => {
+    const errors = validationResult(req)
+    console.log(errors);
     const {
         email, password, lastName, name,
     } = req.body.user
