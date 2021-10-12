@@ -29,7 +29,7 @@
         </div>
         <h4>Esami komentarai:</h4>
         <p v-if="!posts">Kol kas komentarų nėra</p>
-        <div v-else>
+        <div v-else class="submitted--comments">
           <div
             v-for="post in posts"
             class="comment--section--submitted__post"
@@ -111,6 +111,7 @@ export default {
     width: 100%;
     .comment--section {
       padding: 2rem 0;
+   
       .comment--section__title {
         margin-bottom: 2rem;
       }
@@ -140,28 +141,41 @@ export default {
       }
     }
   }
-  .comment--section--submitted__post {
-    margin-bottom: 2rem;
-    border: 1px solid #ddd;
-    padding: 1rem;
-    border-radius: 5px;
-    background-color: #fafafa;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    p {
-      margin: 0;
-      padding: 5px;
+  .submitted--comments {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(130px, auto);
+    min-width: 1100px;
+
+    @media screen and (max-width: 800px) {
+      grid-template-columns: repeat(1, 1fr);
+      width: 80%;
     }
-    .comment--section__metadata {
-      display: flex;
+
+    .comment--section--submitted__post {
+      margin-bottom: 2rem;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 5px;
+      background-color: #fafafa;
       width: 100%;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      p {
+        margin: 0;
+        padding: 5px;
+      }
+      .comment--section__metadata {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
     }
   }
 }

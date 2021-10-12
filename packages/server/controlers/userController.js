@@ -6,6 +6,7 @@ const userRepository = require('../repositories/userRepository')
 const userService = require('../services/userService')({
     userRepository,
 })
+const { validationResult } = require('express-validator')
 
 
 

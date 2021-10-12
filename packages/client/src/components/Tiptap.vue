@@ -130,8 +130,10 @@ export default {
   background-color: rgb(236, 230, 230);
   border: 1px solid rgb(204, 204, 204);
   border-radius: 0.5rem;
+  width: 80%;
   padding: 0.5rem;
-  width: 300px;
+  max-width: 500px;
+  margin: auto;
   min-height: 150px;
   outline: none;
   p,
@@ -153,10 +155,10 @@ export default {
 }
 .tiptap--bottom {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  margin-top: 0.5rem;
-
+  margin: 0.5rem auto 0;
+  max-width: 70%;
   .character-count {
     display: flex;
     align-items: center;
