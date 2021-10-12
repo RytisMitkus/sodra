@@ -111,7 +111,7 @@ export default {
     width: 100%;
     .comment--section {
       padding: 2rem 0;
-   
+
       .comment--section__title {
         margin-bottom: 2rem;
       }
@@ -169,6 +169,7 @@ export default {
         padding: 5px;
       }
       .comment--section__metadata {
+        background-color: red;
         display: flex;
         width: 100%;
         flex-direction: row;
