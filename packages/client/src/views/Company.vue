@@ -169,7 +169,6 @@ export default {
         padding: 5px;
       }
       .comment--section__metadata {
-        background-color: red;
         display: flex;
         width: 100%;
         flex-direction: row;

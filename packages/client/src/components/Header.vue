@@ -8,8 +8,11 @@
       </h3>
     </div>
     <div class="header--item">
-      <router-link class="router__link" to="/login" v-if="!isAuth"
-        >Prisijungti
+      <router-link class="router__link" to="/login" v-if="!isAuth">
+        Prisijungti
+      </router-link>
+      <router-link class="router__link" to="/profile" v-if="isAuth">
+        Paskyra
       </router-link>
       <button @click.prevent="logout" class="logout__button" v-if="isAuth">
         Atsijungti

@@ -72,5 +72,15 @@ const logout = asyncHandler(async (req, res) => {
     })
 })
 
+const getUserDetails = asyncHandler(async (req, res) => {
+    console.log(req.session.user);
+    const { email } = req.session.user
+    const user = await userService.getUserDetailsByEmail(email)
+    const { name, lastName } = user[0]
+    res.json({
+        email, name, lastName
+    })
+})
 
-module.exports = { registerUser, loginUser, logout }
+
+module.exports = { registerUser, loginUser, logout, getUserDetails }

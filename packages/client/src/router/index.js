@@ -32,6 +32,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "dashboard" */ "../views/Dashboard.vue"),
   },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "../views/Profile.vue"),
+  },
 ];
 
 const router = createRouter({
@@ -40,6 +46,7 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
   if (to.name == "Dashboard" && localStorage.getItem("auth")) next();
+  else if (to.name == "Profile" && localStorage.getItem("auth")) next();
   else if (to.name == "Home" || to.name == "company") next();
   else if (to.name == "Login" || to.name == "SignUp") next();
   else next({ name: "Home" });

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { registerUser, loginUser, logout } = require('../controlers/userController')
+const { registerUser, loginUser, logout, getUserDetails } = require('../controlers/userController')
 const { body } = require('express-validator')
 const { checkValidation } = require('../utils/validations')
 router.route('/')
@@ -20,4 +20,8 @@ router.route('/login')
 
 router.route('/logout')
     .post(logout)
+
+router.route('/profile')
+    .get(getUserDetails)
+
 module.exports = router;
