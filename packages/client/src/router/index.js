@@ -38,6 +38,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "profile" */ "../views/Profile.vue"),
   },
+  {
+    path: "/news",
+    name: "NewsDashboard",
+    component: () =>
+      import(/* webpackChunkName: "news" */ "../views/NewsDashboard.vue"),
+  },
 ];
 
 const router = createRouter({
@@ -47,6 +53,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.name == "Dashboard" && localStorage.getItem("auth")) next();
   else if (to.name == "Profile" && localStorage.getItem("auth")) next();
+  else if (to.name == "NewsDashboard" && localStorage.getItem("auth")) next();
   else if (to.name == "Home" || to.name == "company") next();
   else if (to.name == "Login" || to.name == "SignUp") next();
   else next({ name: "Home" });

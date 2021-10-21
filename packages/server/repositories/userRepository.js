@@ -1,4 +1,4 @@
-const db = require('../mysql/db')
+const db = require('../config/db')
 
 async function insertNewUser(user) {
 

@@ -7,6 +7,7 @@
       <p>Pavardė: {{ userData.lastName }}</p>
       <p>El. paštas: {{ userData.email }}</p>
     </div>
+    <router-link to="/news">Rašyti naujieną</router-link>
   </div>
 </template>
 
