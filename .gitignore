@@ -7,3 +7,6 @@ packages/server/monthly2019.json
 packages/server/monthly-2018.json
 packages/server/monthly2020.json
 packages/server/monthly2021.json
+packages/server/seed.js
+packages/server/companiesCodes.js
+packages/server/gcskeys.json

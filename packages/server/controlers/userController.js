@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt')
 const { v4: uuidv4 } = require('uuid');
-const asyncHandler = require('express-async-handler')
 const createError = require('http-errors')
 const userRepository = require('../repositories/userRepository')
 const userService = require('../services/userService')({
@@ -10,7 +9,7 @@ const { validationResult } = require('express-validator')
 
 
 
-const registerUser = asyncHandler(async (req, res) => {
+const registerUser = async (req, res) => {
     const errors = validationResult(req)
     console.log(errors);
     const {
@@ -29,11 +28,11 @@ const registerUser = asyncHandler(async (req, res) => {
     res.json({
         auth: true
     })
-})
+}
 
 
 
-const loginUser = asyncHandler(async (req, res, next) => {
+const loginUser = async (req, res, next) => {
     const { email } = req.body.user
 
     const userDetails = await userService.getUserDetailsByEmail(email)
@@ -62,17 +61,17 @@ const loginUser = asyncHandler(async (req, res, next) => {
     res.json({
         auth: true
     })
-})
+}
 
-const logout = asyncHandler(async (req, res) => {
+const logout = (req, res) => {
     req.session.destroy();
     res.clearCookie('connect.sid')
     res.json({
         success: true
     })
-})
+}
 
-const getUserDetails = asyncHandler(async (req, res) => {
+const getUserDetails = async (req, res) => {
     console.log(req.session.user);
     const { email } = req.session.user
     const user = await userService.getUserDetailsByEmail(email)
@@ -80,7 +79,7 @@ const getUserDetails = asyncHandler(async (req, res) => {
     res.json({
         email, name, lastName
     })
-})
+}
 
 
 module.exports = { registerUser, loginUser, logout, getUserDetails }
