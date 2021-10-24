@@ -1,11 +1,11 @@
 const router = require('express').Router();
 const { addNews, getNews } = require('../controlers/newsController');
-
+const asyncHandler = require('express-async-handler');
 
 router.route('/upload')
-    .post(addNews)
+    .post(asyncHandler(addNews))
 
 router.route('/')
-    .get(getNews);
+    .get(asyncHandler(getNews))
 
 module.exports = router;

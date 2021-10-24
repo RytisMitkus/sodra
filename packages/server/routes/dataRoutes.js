@@ -1,11 +1,12 @@
 const router = require('express').Router();
 const { latestData, oneCompanyData } = require('../controlers/dataController')
+const asyncHandler = require('express-async-handler')
 
 router.route('/')
-    .get(latestData)
+    .get(asyncHandler(latestData))
 
 router.route('/:id')
-    .get(oneCompanyData)
+    .get(asyncHandler(oneCompanyData))
 
 
 

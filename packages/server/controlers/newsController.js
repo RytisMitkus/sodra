@@ -1,4 +1,3 @@
-const asyncHandler = require('express-async-handler')
 const processFile = require("../middleware/upload");
 const newsRepository = require('../repositories/newsRepository')
 const storageRepository = require('../repositories/storageRepository')
@@ -7,7 +6,7 @@ const createError = require('http-errors')
 
 
 
-const addNews = asyncHandler(async (req, res, next) => {
+const addNews = async (req, res, next) => {
 
     await processFile(req, res).catch(err => {
         return next(createError(400, err.message))
@@ -41,9 +40,9 @@ const addNews = asyncHandler(async (req, res, next) => {
             news
         }
     })
-})
+}
 
-const getNews = asyncHandler(async (req, res, next) => {
+const getNews = async (req, res, next) => {
     const news = await newsService.getNewsArticles()
     res.json({
         status: 'success',
@@ -51,7 +50,7 @@ const getNews = asyncHandler(async (req, res, next) => {
             news
         }
     })
-})
+}
 
 //TO DO
 // 3. Fix all possible bugs

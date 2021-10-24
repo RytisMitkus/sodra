@@ -1,11 +1,12 @@
 const router = require('express').Router();
 const { newPost, getCompanyPosts } = require('../controlers/postsController')
+const asyncHandler = require('express-async-handler')
 
 router.route('/new')
-    .post(newPost)
+    .post(asyncHandler(newPost))
 
 router.route('/companyposts/:jarCode')
-    .get(getCompanyPosts)
+    .get(asyncHandler(getCompanyPosts))
 
 
 module.exports = router;

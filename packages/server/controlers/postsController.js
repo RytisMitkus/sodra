@@ -1,10 +1,9 @@
-const asyncHandler = require('express-async-handler')
 const postsRepository = require('../repositories/postsRepository')
 const postsService = require('../services/postsService')({ postsRepository })
 const createError = require('http-errors')
 
 
-const newPost = asyncHandler(async (req, res) => {
+const newPost = async (req, res) => {
 
     const { uid } = req.session.user
 
@@ -22,16 +21,16 @@ const newPost = asyncHandler(async (req, res) => {
     postsService.insertNewPost(newPost)
 
     res.json({ success: true })
-})
+}
 
-const getCompanyPosts = asyncHandler(async (req, res) => {
+const getCompanyPosts = async (req, res) => {
 
     const { jarCode } = req.params
 
     const posts = await postsService.getCompanyPostsByJarCode(jarCode)
 
     res.json({ posts })
-})
+}
 
 module.exports = {
     newPost,
