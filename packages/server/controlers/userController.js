@@ -5,44 +5,50 @@ const userRepository = require('../repositories/userRepository')
 const userService = require('../services/userService')({
     userRepository,
 })
-const { validationResult } = require('express-validator')
-
-
 
 const registerUser = async (req, res) => {
-    const errors = validationResult(req)
-    console.log(errors);
     const {
         email, password, lastName, name,
     } = req.body.user
+
     await userService.isUserEmailAvailableForRegistration(email)
+
+    const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT_ROUNDS))
+
     const user = {
         email,
         lastName,
         name,
-        password: password ? await bcrypt.hash(password, Number(process.env.SALT_ROUNDS)) : '',
+        password: hashedPassword,
         uid: uuidv4(),
     }
+
     await userService.registerUser(user)
-    req.session.user = user
+
+    const sessionUser = {
+        email,
+        uid: user.uid
+    }
+
+    req.session.user = sessionUser
     res.json({
-        auth: true
+        auth: true,
+        user: {
+            email,
+            name,
+            lastName,
+        }
     })
 }
 
-
-
 const loginUser = async (req, res, next) => {
+
     const { email } = req.body.user
 
     const userDetails = await userService.getUserDetailsByEmail(email)
 
-    if (userDetails.length == 0) {
-        return next(createError(401, 'Email or password incorrect.'))
-    }
-
     const {
-        password, uid,
+        password, uid, name, lastName,
     } = userDetails[0]
 
     const passwordMatch = await bcrypt.compare(req.body.user.password, password)
@@ -59,6 +65,11 @@ const loginUser = async (req, res, next) => {
     req.session.user = user
 
     res.json({
+        user: {
+            email,
+            name,
+            lastName,
+        },
         auth: true
     })
 }
@@ -67,12 +78,11 @@ const logout = (req, res) => {
     req.session.destroy();
     res.clearCookie('connect.sid')
     res.json({
-        success: true
+        logout: true
     })
 }
 
 const getUserDetails = async (req, res) => {
-    console.log(req.session.user);
     const { email } = req.session.user
     const user = await userService.getUserDetailsByEmail(email)
     const { name, lastName } = user[0]

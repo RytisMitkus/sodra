@@ -19,7 +19,7 @@ router.route('/login')
         body('user.password').isLength({ min: 6 }),
         checkValidation
         , asyncHandler(loginUser))
-
+ 
 router.route('/logout')
     .post(logout)
 

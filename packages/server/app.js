@@ -29,7 +29,6 @@ app.use('/api/news', newsRoutes)
 
 
 app.use((err, req, res, next) => {
-
     if (err.status === 422) {
         res.status(422).json(err.errors)
         return

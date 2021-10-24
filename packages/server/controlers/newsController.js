@@ -18,7 +18,7 @@ const addNews = async (req, res, next) => {
     }
 
     const publicUrl = await newsService.uploadImage(req.file)
-
+    console.log(publicUrl);
     let slug = req.body.slug.toLowerCase().replace(/ /g, '-');
 
     const news = {
@@ -30,22 +30,21 @@ const addNews = async (req, res, next) => {
         hero_image: publicUrl
     }
 
-    const insertedNewsArticleId = await newsService.insertNewArticle(news)
+    await newsService.insertNewArticle(news)
 
     res.json({
-        articleId: insertedNewsArticleId,
-        message: 'News added successfully',
-        status: 'success',
+        message: 'Article added successfully',
+        status: 'Success',
         data: {
             news
         }
     })
 }
 
-const getNews = async (req, res, next) => {
+const getNews = async (req, res) => {
     const news = await newsService.getNewsArticles()
     res.json({
-        status: 'success',
+        status: 'Success',
         data: {
             news
         }
