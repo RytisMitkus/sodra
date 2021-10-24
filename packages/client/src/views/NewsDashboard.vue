@@ -23,12 +23,16 @@ export default {
 
       formData.append("file", this.file);
 
-      const data = await axios.post("http://localhost:3000/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          withCredentials: true,
-        },
-      });
+      const data = await axios.post(
+        "http://localhost:3000/api/news/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            withCredentials: true,
+          },
+        }
+      );
       console.log(data);
     },
   },

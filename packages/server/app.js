@@ -28,24 +28,24 @@ app.use('/api/posts', postsRoutes)
 app.use('/api/news', newsRoutes)
 
 
-// app.use((err, req, res, next) => {
+app.use((err, req, res, next) => {
 
-//     if (err.status === 422) {
-//         res.status(422).json(err.errors)
-//         return
-//     }
-//     if (err.sqlState || err.sql || err.sqlMessage) {
-//         // Hide message from DB
-//         // eslint - disable - next - line no - param - reassign
-//         err.message = 'Error 500. Database error'
-//     }
+    if (err.status === 422) {
+        res.status(422).json(err.errors)
+        return
+    }
+    if (err.sqlState || err.sql || err.sqlMessage) {
+        // Hide message from DB
+        // eslint - disable - next - line no - param - reassign
+        err.message = 'Error 500. Database error'
+    }
 
-//     res.status(err.status || 500).json({
-//         error: err.status || 500,
-//         message: typeof err === 'string'
-//             ? err : err.message || 'Error 500. Internal server error',
-//     })
-// })
+    res.status(err.status || 500).json({
+        error: err.status || 500,
+        message: typeof err === 'string'
+            ? err : err.message || 'Error 500. Internal server error',
+    })
+})
 
 
 app.listen(3000, () => {
