@@ -11,7 +11,7 @@ const oneCompanyData = async (req, res) => {
     const data = await dataService.getOneCompanyData(req.params.id)
     res.json(data)
 }
-
+ 
 module.exports = {
     latestData,
     oneCompanyData

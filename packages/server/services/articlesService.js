@@ -1,11 +1,11 @@
 const createError = require('http-errors')
 
 module.exports = ({
-    newsRepository,
+    articlesRepository,
     storageRepository
 }) => ({
     async insertNewArticle(newsArticle) {
-        const article = await newsRepository.insertNewsArticle(newsArticle)
+        const article = await articlesRepository.insertNewsArticle(newsArticle)
 
         if (article.affectedRows === 0) {
             return next(createError(400, 'Something went wrong'))
@@ -25,12 +25,24 @@ module.exports = ({
     },
 
     async getNewsArticles() {
-        const articles = await newsRepository.getNewsArticles()
+        const articles = await articlesRepository.getNewsArticles()
 
         if (!articles) {
             return next(createError(400, 'Something went wrong'))
         }
 
         return articles
+    },
+    async getArticleBySlug(slug) {
+
+        const article = await articlesRepository.getArticleBySlug(slug)
+
+        return article
+    },
+    async checkSlug(slug) {
+        const isTaken = await articlesRepository.checkIfSlugIsTaken(slug)
+
+        return isTaken
     }
+
 })
