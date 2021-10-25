@@ -10,7 +10,7 @@ const app = express();
 const dataRoutes = require('./routes/dataRoutes');
 const userRoutes = require('./routes/userRoutes');
 const postsRoutes = require('./routes/postsRoutes');
-const newsRoutes = require('./routes/newsRoutes');
+const articlesRoutes = require('./routes/articlesRoutes');
 
 app.use(morgan('dev'));
 app.use(express.json());
@@ -25,7 +25,7 @@ app.use(mysqlSession);
 app.use('/api/data', dataRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/posts', postsRoutes)
-app.use('/api/news', newsRoutes)
+app.use('/api/news', articlesRoutes)
 
 
 app.use((err, req, res, next) => {

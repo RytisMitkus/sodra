@@ -1,6 +1,5 @@
 const util = require("util");
 const Multer = require("multer");
-const createError = require("http-errors");
 const maxSize = 20 * 1024 * 1024;
 
 let processFile = Multer({
