@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { addNews, getNews } = require('../controlers/newsController');
+const { addNews, getNews } = require('../controllers/newsController');
 const asyncHandler = require('express-async-handler');
 
 router.route('/upload')

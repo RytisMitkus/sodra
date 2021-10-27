@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { registerUser, loginUser, logout, getUserDetails } = require('../controlers/userController')
+const { registerUser, loginUser, logout, getUserDetails } = require('../controllers/userController')
 const { body } = require('express-validator')
 const { checkValidation } = require('../utils/validations')
 const asyncHandler = require('express-async-handler')
@@ -19,7 +19,7 @@ router.route('/login')
         body('user.password').isLength({ min: 6 }),
         checkValidation
         , asyncHandler(loginUser))
- 
+
 router.route('/logout')
     .post(logout)
 

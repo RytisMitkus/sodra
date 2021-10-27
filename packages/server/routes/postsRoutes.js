@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { newPost, getCompanyPosts } = require('../controlers/postsController')
+const { newPost, getCompanyPosts } = require('../controllers/postsController')
 const asyncHandler = require('express-async-handler')
 
 router.route('/new')
