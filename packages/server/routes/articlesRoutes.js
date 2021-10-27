@@ -1,5 +1,7 @@
 const router = require('express').Router();
-const { addArticle, getAllArticles, getArticleBySlug, checkSlugAvailability } = require('../controlers/articlesController');
+
+const { addArticle, getAllArticles, getArticleBySlug, checkSlugAvailability } = require('../controllers/articlesController');
+
 const asyncHandler = require('express-async-handler');
 const processFile = require("../middleware/upload");
 

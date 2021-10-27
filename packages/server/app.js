@@ -22,6 +22,7 @@ app.use(cors({
 
 app.use(mysqlSession);
 
+app.use(require('./routes/swaggerRoutes'))
 app.use('/api/data', dataRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/posts', postsRoutes)
