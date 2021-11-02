@@ -1,26 +1,27 @@
 const router = require('express').Router();
+const articlesRepository = require('../repositories/articlesRepository')
+const storageRepository = require('../repositories/storageRepository')
+const articlesService = require('../services/articlesService')({ articlesRepository, storageRepository })
 
-const { addArticle, getAllArticles, getArticleBySlug, checkSlugAvailability } = require('../controllers/articlesController');
+const articlesController = require('../controllers/articlesController')({ articlesService });
 
 const asyncHandler = require('express-async-handler');
 const processFile = require("../middleware/upload");
 
 
 router.route('/')
-    .get(asyncHandler(getAllArticles))
+    .get(asyncHandler(articlesController.getAllArticles))
 
 router.route('/check-slug')
-    .get(asyncHandler(checkSlugAvailability))
+    .get(asyncHandler(articlesController.checkSlugAvailability))
 
 router.route('/:slug')
-    .get(asyncHandler(getArticleBySlug))
+    .get(asyncHandler(articlesController.getArticleBySlug))
 
 router.use(processFile)
 
 router.route('/upload')
-    .post(asyncHandler(addArticle))
-
-
+    .post(asyncHandler(articlesController.addArticle))
 
 
 module.exports = router;

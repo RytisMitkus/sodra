@@ -9,16 +9,18 @@ const newPost = async (req, res) => {
 
     if (!uid) next(createError(401, 'Unauthorized'))
 
-    let { jarCode, content } = req.body
+    let { jarCode, content, parentId } = req.body
 
     jarCode = Number(jarCode)
 
     const newPost = {
         author_id: uid,
         post: content,
-        jarCode
+        jarCode,
+        parent_post_id: parentId ? Number(parentId) : ''
     }
-    postsService.insertNewPost(newPost)
+
+    await postsService.insertNewPost(newPost)
 
     res.json({ success: true })
 }

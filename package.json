@@ -5,7 +5,8 @@
     ],
     "scripts": {
         "deploy": "lerna run deploy",
-        "serve": "lerna run serve --stream"
+        "serve": "lerna run serve --stream",
+        "test": "lerna run test --stream"
     },
     "devDependencies": {
         "lerna": "^4.0.0"

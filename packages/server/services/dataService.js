@@ -1,15 +1,13 @@
 const createError = require('http-errors')
 
-
 module.exports = ({
     dataRepository,
 }) => ({
     async getLatestData() {
         let latestData = await dataRepository.getLatestData()
-        latestData.map(data => {
-            data.taxes = Number(data.taxes)
-            return data
-        })
+        if (!latestData) {
+            throw createError(404, 'No data found')
+        }
         return latestData
     },
     async getOneCompanyData(jarCode) {

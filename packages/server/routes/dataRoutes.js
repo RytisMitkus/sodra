@@ -1,6 +1,10 @@
 const router = require('express').Router();
-const { latestData, oneCompanyData } = require('../controllers/dataController')
+const dataRepository = require('../repositories/dataRepository');
+const dataService = require('../services/dataService')({ dataRepository });
+
+const dataController = require('../controllers/dataController')({ dataService })
 const asyncHandler = require('express-async-handler')
+
 
 /**
    * @openapi
@@ -19,7 +23,7 @@ const asyncHandler = require('express-async-handler')
 
    */
 router.route('/')
-    .get(asyncHandler(latestData))
+    .get(asyncHandler(dataController.latestData))
 /**
    * @openapi
    * /api/data/{id}:
@@ -45,7 +49,7 @@ router.route('/')
    *       
    */
 router.route('/:id')
-    .get(asyncHandler(oneCompanyData))
+    .get(asyncHandler(dataController.oneCompanyData))
 
 
 
