@@ -1,40 +1,39 @@
-const postsRepository = require('../repositories/postsRepository')
-const postsService = require('../services/postsService')({ postsRepository })
+
 const createError = require('http-errors')
 
+module.exports = ({ postsService }) => {
 
-const newPost = async (req, res) => {
+    const controller = {}
 
-    const { uid } = req.session.user
+    controller.newPost = async (req, res) => {
 
-    if (!uid) next(createError(401, 'Unauthorized'))
+        const { uid } = req.session.user
 
-    let { jarCode, content, parentId } = req.body
+        if (!uid) next(createError(401, 'Unauthorized'))
 
-    jarCode = Number(jarCode)
+        let { jarCode, content, parentId } = req.body
 
-    const newPost = {
-        author_id: uid,
-        post: content,
-        jarCode,
-        parent_post_id: parentId ? Number(parentId) : ''
+        jarCode = Number(jarCode)
+
+        const newPost = {
+            author_id: uid,
+            post: content,
+            jarCode,
+            parent_post_id: parentId ? Number(parentId) : ''
+        }
+
+        await postsService.insertNewPost(newPost)
+
+        res.json({ success: true })
     }
 
-    await postsService.insertNewPost(newPost)
+    controller.getCompanyPosts = async (req, res) => {
 
-    res.json({ success: true })
-}
+        const { jarCode } = req.params
 
-const getCompanyPosts = async (req, res) => {
+        const posts = await postsService.getCompanyPostsByJarCode(jarCode)
 
-    const { jarCode } = req.params
-
-    const posts = await postsService.getCompanyPostsByJarCode(jarCode)
-
-    res.json({ posts })
-}
-
-module.exports = {
-    newPost,
-    getCompanyPosts
+        res.json({ posts })
+    }
+    return controller
 }

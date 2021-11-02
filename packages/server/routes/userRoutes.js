@@ -1,8 +1,14 @@
 const router = require('express').Router();
-const { registerUser, loginUser, logout, getUserDetails } = require('../controllers/userController')
+const userRepository = require('../repositories/userRepository')
+const userService = require('../services/userService')({
+    userRepository,
+})
+const userController = require('../controllers/userController')({ userService })
 const { body } = require('express-validator')
 const { checkValidation } = require('../utils/validations')
 const asyncHandler = require('express-async-handler')
+
+
 
 router.route('/')
     .post(
@@ -11,19 +17,19 @@ router.route('/')
         body('user.password').isLength({ min: 6 }),
         body('user.lastName').trim().isLength({ min: 3 }).toLowerCase(),
         checkValidation
-        , asyncHandler(registerUser))
+        , asyncHandler(userController.registerUser))
 
 router.route('/login')
     .post(
         body('user.email').isEmail(),
         body('user.password').isLength({ min: 6 }),
         checkValidation
-        , asyncHandler(loginUser))
+        , asyncHandler(userController.loginUser))
 
 router.route('/logout')
-    .post(logout)
+    .post(userController.logout)
 
 router.route('/profile')
-    .get(asyncHandler(getUserDetails))
+    .get(asyncHandler(userController.getUserDetails))
 
 module.exports = router;
