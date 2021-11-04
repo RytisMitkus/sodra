@@ -5,6 +5,7 @@ module.exports = ({
     storageRepository
 }) => ({
     async insertNewArticle(newsArticle) {
+
         const article = await articlesRepository.insertNewsArticle(newsArticle)
 
         if (article.affectedRows === 0) {

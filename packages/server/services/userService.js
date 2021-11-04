@@ -5,9 +5,12 @@ module.exports = ({
 }) => ({
     async isUserEmailAvailableForRegistration(email) {
         const emailExists = await userRepository.checkEmailExists(email)
+
         if (emailExists) {
             throw createError(409, 'Oops! Email has already been taken.')
         }
+
+        return true
     },
 
     async registerUser(user) {
@@ -17,4 +20,4 @@ module.exports = ({
     async getUserDetailsByEmail(email) {
         return await userRepository.getUserByEmail(email)
     }
-}) 
+})

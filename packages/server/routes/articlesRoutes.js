@@ -5,6 +5,9 @@ const articlesService = require('../services/articlesService')({ articlesReposit
 
 const articlesController = require('../controllers/articlesController')({ articlesService });
 
+const { param } = require('express-validator')
+const { checkValidation } = require('../utils/validations')
+
 const asyncHandler = require('express-async-handler');
 const processFile = require("../middleware/upload");
 
@@ -16,7 +19,11 @@ router.route('/check-slug')
     .get(asyncHandler(articlesController.checkSlugAvailability))
 
 router.route('/:slug')
-    .get(asyncHandler(articlesController.getArticleBySlug))
+    .get(
+        param('slug').isString(), checkValidation,
+        asyncHandler(articlesController.getArticleBySlug)
+    )
+
 
 router.use(processFile)
 
