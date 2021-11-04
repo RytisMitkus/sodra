@@ -4,6 +4,7 @@ module.exports = ({
     postsRepository,
 }) => ({
     async insertNewPost(post) {
+
         const newPost = await postsRepository.insertNewPost(post)
 
         if (!newPost) {
